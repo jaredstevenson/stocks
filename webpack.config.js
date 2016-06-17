@@ -1,7 +1,7 @@
 var HtmlWebpackPlugin = require ('html-webpack-plugin')
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: "./src/main.jsx",
     output: {
         path: __dirname,
         filename: "bundle.js"
@@ -17,7 +17,7 @@ module.exports = {
     },
 
     devServer: {
-      port: 3011,
+      port: 3001,
       historyApiFallback: true
     },
     plugins: [
@@ -26,7 +26,7 @@ module.exports = {
           inject: false,
           template: 'node_modules/html-webpack-template/index.ejs',
           title: 'Stocks',
-          devServer: 'http://localhost:3011',
+          devServer: 'http://localhost:3001',
           appMountId: 'app'
         }
       )
