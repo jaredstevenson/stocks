@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
+import { reducer } from './reducers/index.js';
 
 import React from "react";
 import { render } from "react-dom";
@@ -6,7 +7,7 @@ import { App } from "./components/App.jsx";
 import './style.css';
 
 //to do: work on connecting stock prices to get current price.
-// also start redux
+// also continue to write redux functions. the skeleton is connected.
 
 //dummyData is in the format that I want my future data
 const dummyData = {
@@ -45,10 +46,7 @@ const dummyData = {
   },
   views: {
     menu: {
-      buyDropdownOpen: false,
-      sellDropdownOpen: false,
-      checkPriceDropdownOpen: false,
-      historyDropdownOpen: false
+      openDropDown: null
     }
   },
   transactions: {
@@ -82,5 +80,18 @@ const dummyData = {
   }
 }
 
+const store = createStore(reducer, dummyData)
+store.subscribe(()=>{
+  renderPage(store.getState());
 
-render(<App data={dummyData}></App>, document.getElementById("app"))
+})
+
+store.dispatch({
+  type: "MENU_DISPLAY_BUY"
+})
+
+function renderPage(state) {
+render(<App state={state} dispatch={store.dispatch}></App>, document.getElementById("app"))
+}
+
+renderPage(store.getState());

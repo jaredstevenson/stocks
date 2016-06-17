@@ -7,7 +7,7 @@ export class History extends React.Component{
       <div>
         <div>History!</div>
         <div>You bought some aapl and some fb</div>
-        <div>{this.props.data.transactions.buy[0].symbol}</div>
+        <div></div>
       </div>
     )}
   }
