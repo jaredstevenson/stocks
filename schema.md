@@ -2,7 +2,14 @@ AppState{
   holdings: [{holding}],
   marketPrices: [MarketPrice]
   user: User
-  views: dropdown
+  views: string
+}
+
+views {
+  Buy,
+  Sell,
+  Check Price,
+  History
 }
 
 Holding {
