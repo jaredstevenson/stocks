@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { reducer } from './reducers/index.js';
+import { reducerWithLog as reducer } from './reducers/index.js';
 import axios from 'axios';
 import {getStockPrice} from './actionCreators/index.js'
 
@@ -9,7 +9,8 @@ import { App } from "./components/App.jsx";
 import './style.css';
 
 var stock;
-//to do:
+//to do: work on the buy function. figure out where to put my backend code that does a lot. maybe lib?
+// also the number of shares in the buy isn't working yet. get that running first.
 // (maybe add a 'selected stock' portion to my AppState)
 // also continue to write redux functions. the skeleton is connected.
 
@@ -47,15 +48,15 @@ const dummyData = {
   user: {
     name: "jorge",
     username: "jorge239",
-    id: "13"
+    id: "13",
+    cash: 1000000
   },
   views: {
     menu: {
       openDropDown: null
     },
     priceCheck: {
-        symbolField: "",
-        price: 0
+        symbol: ""
     },
     buyField: {
       numberShares: 0
@@ -101,7 +102,6 @@ const dummyData = {
 const store = createStore(reducer, dummyData)
 store.subscribe(()=>{
   renderPage(store.getState());
-  console.log("store", store.getState());
 })
 
 

@@ -19,6 +19,12 @@ export class Portfolio extends React.Component {
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td>Cash</td>
+              <td>-----</td>
+              <td>-----</td>
+              <td>{this.props.cash}</td>
+            </tr>
             {this.props.holdings.map((holding)=>{
               const stockPrice = find(this.props.marketPrices, (stockPrice)=>{
                 return (stockPrice.symbol == holding.symbol)
@@ -49,9 +55,7 @@ export class Portfolio extends React.Component {
                     ${holding.avgCostBasis}
 
                   </td>
-                  <td>
 
-                  </td>
                 </tr>
 
               )
@@ -59,10 +63,27 @@ export class Portfolio extends React.Component {
             }
           )
           }
+          <tr>
+            <td>Total Value</td>
+            <td>-----</td>
+            <td>-----</td>
+            <td>{this.props.cash + portfolioTotalValue(this.props.holdings, this.props.marketPrices)}</td>
+          </tr>
         </tbody>
       </table>
       Prices last updated {this.props.marketPrices[0].updatedAt.toString()}
       </div>
     )
   }
+}
+
+function portfolioTotalValue(holdings, marketPrices){
+  let totalValue = 0;
+  holdings.map((holding)=> {
+    const stockPrice = find(marketPrices, (stockPrice)=>{
+      return (stockPrice.symbol == holding.symbol)
+    })
+    totalValue += (holding.numShares * stockPrice.price);
+  })
+  return totalValue;
 }

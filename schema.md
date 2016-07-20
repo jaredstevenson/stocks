@@ -28,7 +28,8 @@ MarketPrice {
 User {
   name: string,
   username: string,
-  id: string
+  id: string,
+  cash: number
 }
 
 {

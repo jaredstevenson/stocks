@@ -2,9 +2,13 @@
   box-sizing: border-box;
 }
 
+table, th, td {
+    border: 1px solid black;
+}
+
 body {
-  background-color: black;
-  color: purple;
+  background-color: grey;
+  color: blue;
   font-size: 1.2em;
 }
 

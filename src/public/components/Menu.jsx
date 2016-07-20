@@ -22,18 +22,32 @@ export class Menu extends React.Component {
           <ul>
             <li><a class="" href="javascript:void(0)" onClick={()=>menuClickHandler('buy')}>Buy</a>
               <div className={dropDownClassBuy}>
-                <Buy state={this.props.state} getStockPrice={this.props.getStockPrice}></Buy>
+                <Buy
+                  findStockPriceInMarket={this.props.findStockPriceInMarket}
+                  handleBuyButton={this.props.handleBuyButton}
+                  handleBuySharesChange={this.props.handleBuySharesChange}
+                  handlePriceChange={this.props.handlePriceChange}
+                  state={this.props.state}
+                  getStockPrice={this.props.getStockPrice}
+                ></Buy>
               </div>
             </li>
             <li><a href="javascript:void(0)" onClick={()=>menuClickHandler('sell')}>Sell</a>
               <div className={dropDownClassSell}>
-                <Sell getStockPrice={this.props.getStockPrice}></Sell>
+                <Sell
+                  findStockPriceInMarket={this.props.findStockPriceInMarket}
+                  handlePriceChange={this.props.handlePriceChange}
+                  getStockPrice={this.props.getStockPrice}
+                  handleSellButton={this.props.handleSellButton}
+                  handleSellSharesChange={this.props.handleSellSharesChange}
+                  state={this.props.state}
+                ></Sell>
               </div>
             </li>
             <li className="dropdown">
               <a href="javascript:void(0)" className="dropbtn" onClick={()=>menuClickHandler('checkPrice')}>Check Price</a>
               <div className={ dropDownClassCheckPrice }>
-               <Price dispatch={this.props.dispatch} state={this.props.state} getStockPrice={this.props.getStockPrice}></Price>
+               <Price findStockPriceInMarket={this.props.findStockPriceInMarket} handlePriceChange={this.props.handlePriceChange} dispatch={this.props.dispatch} state={this.props.state} getStockPrice={this.props.getStockPrice}></Price>
               </div>
             </li>
             <li><a href="javascript:void(0)" onClick={()=>menuClickHandler('history')}>History</a>

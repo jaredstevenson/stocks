@@ -1,14 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { find } from 'lodash';
 
 
 export class Buy extends React.Component{
   constructor(props){
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {symbol: '',
-      price: null};
+    // this.handlePriceChange = this.handlePriceChange.bind(this);
+    // this.state = {symbol: '',
+    //   price: null};
 
   }
 
@@ -17,29 +16,25 @@ export class Buy extends React.Component{
       <div>
         <p>Stock Symbol: <input
           type="text"
-          symbol={this.state.symbol}
-          onChange={this.handleChange}
-        />${this.findStock(this.state.symbol)}</p>
-        <p><button onClick={()=>this.handlePriceButton(this.state.symbol)}>Check Price</button></p>
-        <p>Quantity of Shares: <input></input></p>
-        <p><button>Purchase</button></p>
+          value={this.props.state.views.priceCheck.symbol}
+          onChange={this.props.handlePriceChange}
+        />${this.props.findStockPriceInMarket(this.props.state.views.priceCheck.symbol)}</p>
+      <p><button onClick={()=>this.handlePriceButton(this.props.state.views.priceCheck.symbol)}>Check Price</button></p>
+        <p>Quantity of Shares: <input
+          type="number"
+          value={this.props.state.views.buyField.numberShares}
+          onChange={this.props.handleBuySharesChange}
+        ></input></p>
+      <p><button onClick={()=>this.props.handleBuyButton(this.props.state.views.buyField.numberShares, this.props.state.views.priceCheck.symbol)} >Purchase</button></p>
       </div>
     )
   }
 
-  handleBuyButton(){
 
-  }
+
+
   handlePriceButton(symbol){
     this.props.getStockPrice(symbol);
 
-  }
-  handleChange(event) {
-    this.setState({symbol: event.target.value})
-  }
-  findStock(stockSymbol){
-    var stock = find(this.props.state.marketPrices, {symbol: stockSymbol});
-    if (!stock) return 0;
-    return stock.price;
   }
 }

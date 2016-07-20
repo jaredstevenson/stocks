@@ -1,24 +1,26 @@
 
-export function priceCheck (symbol){
+
+export function sellField (quant){
   return {
-    type: "PRICE_CHECK",
+    type: "SELL_QUANTITY",
     payload: {
-      symbol: symbol
+      numberShares: quant
     }
   }
 }
 
 const initialState =  {
-    symbol: "",
-    price: ""
+    numberShares: 0
 }
 
 export function reducer (state = initialState, action){
   switch(action.type) {
-    case "PRICE_CHECK":
+    case "SELL_QUANTITY":
       return Object.assign({}, state, {
-        symbol: action.payload.symbol
+        numberShares: action.payload.numberShares
       })
+      break;
+
     default:
       return state;
   }
