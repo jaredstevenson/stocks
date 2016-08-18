@@ -116,10 +116,10 @@ export class App extends React.Component{
 
   }
   handleCreateUser(username, name){
-    createUser(username, name);
+    if (!!username) createUser(username, name);
   }
   handleGetUser(username){
-    getUser(username, this.props.dispatch);
+    if (!!username) getUser(username, this.props.dispatch);
   }
 
 }

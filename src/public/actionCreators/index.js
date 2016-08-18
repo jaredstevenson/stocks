@@ -13,6 +13,7 @@ export function getStockPrice(symbol, dispatch){
 
   })
 
+
 }
 
 export function createUser(username, name){
@@ -33,7 +34,8 @@ export function createUser(username, name){
 export function getUser(username, dispatch){
   axios.get('http://localhost:3002/users/' + username)
     .then(function(response){
-      dispatch(setUser(response.data.user, response.data.holdings, response.data.transactions))
-      console.log("get response", response.data);
+      console.log("get response from getUser", response.data.user);
+
+      dispatch(setUser(response.data.user))
     })
 }

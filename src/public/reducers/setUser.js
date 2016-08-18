@@ -1,11 +1,9 @@
 
-export function setUser (user, holdings, transactions){
+export function setUser (user){
   return {
     type: "SET_USER",
     payload: {
-      user: user,
-      holdings: holdings,
-      transactions: transactions
+      user: user
     }
   }
 }
@@ -18,9 +16,7 @@ export function reducer(state = initialState, action) {
   switch(action.type) {
     case "SET_USER":
       return Object.assign({}, state, {
-        user: action.payload.user,
-        holdings: action.payload.holdings,
-        transactions: action.payload.transactions
+        user: action.payload.user
       })
     default:
       return state;

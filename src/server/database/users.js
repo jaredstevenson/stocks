@@ -12,7 +12,7 @@ export function getAll(connection) {
 ///get this working
 export function getOne(connection, username) {
   //var id = Mongodb.ObjectId(userId);
-  return connection.collection("users").findOne({user: {"username": username}});
+  return connection.collection("users").findOne({"user.username": username});
 }
 
 export function update(connection, userId, user) {
