@@ -2,11 +2,12 @@ import { combineReducers } from 'redux';
 import { reducer as views } from './views/index.js';
 import { reducer as marketPrices } from './marketPrices.js';
 import { buyShares, sellShares } from '../lib/model.js';
+import { reducer as setUser } from './setUser.js';
 
 
-function holdings(currentHoldings = []) {
-  return currentHoldings;
-}
+// function holdings(currentHoldings = []) {
+//   return currentHoldings;
+// }
 
 export function purchase (numShares, symbol, wholeState){
   return {
@@ -27,21 +28,15 @@ export function sell (wholeState){
     }
   }
 }
-
-function user(state = null) {
-  return state;
-}
-
-function transactions(state = []) {
-  return state;
-}
+//
+// function transactions(state = []) {
+//   return state;
+// }
 
 export const oldReducer = combineReducers({
-  holdings: holdings,
   marketPrices: marketPrices,
-  user: user,
+  user: setUser,
   views: views,
-  transactions: transactions
 })
 
 export function reducer(state, action){

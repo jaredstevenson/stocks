@@ -17,6 +17,11 @@ var market = {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin',"*")
+  res.setHeader('Access-Control-Allow-Headers', "Content-Type")
+  next();
+})
 
 app.post('/users', function (req, res){
   users.create(connection, req.body)
@@ -27,10 +32,7 @@ app.post('/users', function (req, res){
 
 
 
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin',"*")
-  next();
-})
+
 
 app.put('/users/:id', function(req, res){
   users.update(connection, req.params.id, req.body)
@@ -41,10 +43,10 @@ app.get('/users', function (req, res){
   users.getAll(connection).then(function(us){res.send(us)});
 });
 
-app.get('/users/:id', function(req, res){
-  users.getOne(connection, req.params.id)
+app.get('/users/:username', function(req, res){
+  users.getOne(connection, req.params.username)
   .then(function(user) {
-
+    console.log("user", user);
     res.send(user)
   })
 

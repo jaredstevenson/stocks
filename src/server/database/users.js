@@ -9,9 +9,10 @@ export function getAll(connection) {
   return connection.collection("users").find().toArray();
 }
 
-export function getOne(connection, userId) {
+///get this working
+export function getOne(connection, username) {
   //var id = Mongodb.ObjectId(userId);
-  return connection.collection("users").findOne({"id": userId});
+  return connection.collection("users").findOne({user: {"username": username}});
 }
 
 export function update(connection, userId, user) {

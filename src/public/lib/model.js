@@ -10,33 +10,34 @@ export function buyShares (state) {
   if (!isCashAvailable(dollarAmount, state.user)){
     return state;
   }
-  if (hasStock(state.views.priceCheck.symbol, state.holdings)){
+  if (hasStock(state.views.priceCheck.symbol, state.user.holdings)){
     return Object.assign({}, state, {
       user: Object.assign({}, state.user, {
-        cash: newCash
-      }),
-      holdings: state.holdings.map((holding)=>{
-        if(holding.symbol === stock.symbol){
-          holding.numShares += state.views.buyField.numberShares;
-          holding.avgCostBasis = ((dollarAmount + (holding.avgCostBasis * (holding.numShares - state.views.buyField.numberShares))) / holding.numShares)
-          console.log("has holding", holding.numShares);
-          return holding;
-        }else return holding;
+        cash: newCash,
+        holdings: state.user.holdings.map((holding)=>{
+          if(holding.symbol === stock.symbol){
+            holding.numShares += state.views.buyField.numberShares;
+            holding.avgCostBasis = ((dollarAmount + (holding.avgCostBasis * (holding.numShares - state.views.buyField.numberShares))) / holding.numShares)
+            console.log("has holding", holding.numShares);
+            return holding;
+          }else return holding;
+        })
       })
+
     })
 
   }
-  if (!hasStock(state.views.priceCheck.symbol, state.holdings)){
+  if (!hasStock(state.views.priceCheck.symbol, state.user.holdings)){
     return Object.assign({}, state, {
       user: Object.assign({}, state.user, {
-        cash: newCash
+        cash: newCash,
+        holdings: state.user.holdings.concat([{
+          numShares: state.views.buyField.numberShares,
+          symbol: state.views.priceCheck.symbol,
+          avgCostBasis: (dollarAmount / state.views.buyField.numberShares),
+        }])
       }),
-      holdings: state.holdings.concat([{
-        numShares: state.views.buyField.numberShares,
-        symbol: state.views.priceCheck.symbol,
-        avgCostBasis: (dollarAmount / state.views.buyField.numberShares),
-        userId: state.user.id
-      }])
+
 
     })
   }
@@ -44,13 +45,13 @@ export function buyShares (state) {
 }
 
 export function sellShares (state) {
-  let currentHolding = find(state.holdings, {symbol: state.views.priceCheck.symbol})
+  let currentHolding = find(state.user.holdings, {symbol: state.views.priceCheck.symbol})
   let currentHoldingPrice = find(state.marketPrices, {symbol: state.views.priceCheck.symbol})
   let dollarAmount = currentHoldingPrice.price * state.views.sellField.numberShares
   let newCash = state.user.cash + dollarAmount;
   console.log("newCash", newCash, state.user.cash);
 
-  if(!hasStock(state.views.priceCheck.symbol, state.holdings)){
+  if(!hasStock(state.views.priceCheck.symbol, state.user.holdings)){
     return state;
   }
   if( state.views.sellField.numberShares > currentHolding.numShares){
@@ -59,25 +60,27 @@ export function sellShares (state) {
   if (state.views.sellField.numberShares === currentHolding.numShares){
     return Object.assign({}, state, {
       user: Object.assign({}, state.user, {
-        cash: newCash
-      }),
-      holdings: filter(state.holdings, (holding)=>{
-        console.log("filter"  );
-        return holding.symbol !== currentHolding.symbol
+        cash: newCash,
+        holdings: filter(state.user.holdings, (holding)=>{
+          console.log("filter"  );
+          return holding.symbol !== currentHolding.symbol
+        })
       })
+
     })
   }
   return Object.assign({}, state, {
     user: Object.assign({}, state.user, {
-      cash: newCash
-    }),
-    holdings: state.holdings.map((holding)=>{
-      if (currentHolding.symbol === holding.symbol){
-        console.log("inside correct holding", holding.numShares);
-        holding.numShares -= state.views.sellField.numberShares;
-        return holding;
-      }else return holding;
+      cash: newCash,
+      holdings: state.user.holdings.map((holding)=>{
+        if (currentHolding.symbol === holding.symbol){
+          console.log("inside correct holding", holding.numShares);
+          holding.numShares -= state.views.sellField.numberShares;
+          return holding;
+        }else return holding;
+      })
     })
+
   })
 }
 

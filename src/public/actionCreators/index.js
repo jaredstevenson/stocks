@@ -1,5 +1,6 @@
 import {updateStockPrice} from '../reducers/marketPrices.js';
 import axios from 'axios';
+import {setUser} from '../reducers/setUser.js';
 
 
 
@@ -19,10 +20,20 @@ export function createUser(username, name){
     user: {
       name: name,
       username: username,
-      cash: 1000000
-    },
-    holdings: [],
-    transactions: {}
-
+      cash: 1000000,
+      holdings: [],
+      transactions: {}
+    }
   })
+  .then(function(response){
+    console.log("response", response);
+  })
+}
+
+export function getUser(username, dispatch){
+  axios.get('http://localhost:3002/users/' + username)
+    .then(function(response){
+      dispatch(setUser(response.data.user, response.data.holdings, response.data.transactions))
+      console.log("get response", response.data);
+    })
 }

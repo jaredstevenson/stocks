@@ -4,6 +4,8 @@ import { reducer as priceCheck } from './priceCheck.js';
 import { reducer as buyQuantity } from './buyField.js';
 import { reducer as buyField } from './buyField.js';
 import { reducer as sellField } from './sellField.js';
+import { reducer as showLogin } from './showLogin.js';
+
 
 import { combineReducers } from 'redux';
 
@@ -14,7 +16,8 @@ export const reducer = combineReducers({
   priceCheck: priceCheck,
   buyField: buyField,
   sellField: sellField,
-  buyQuantity: buyQuantity
+  buyQuantity: buyQuantity,
+  showLogin: showLogin
 })
 
 function identity(s){

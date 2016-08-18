@@ -4,10 +4,15 @@ import { find } from 'lodash';
 
 import { Portfolio } from "./Portfolio.jsx"
 import { Menu } from "./Menu.jsx"
+import { Login } from "./Login.jsx"
+import { createUser, getUser } from "../actionCreators/index.js"
+
 import { menuDisplay } from "../reducers/views/menu.js";
 import { priceCheck } from '../reducers/views/priceCheck.js';
 import { buyQuantity } from '../reducers/views/buyField.js';
 import { sellField } from '../reducers/views/sellField.js';
+import { showLogin } from '../reducers/views/showLogin.js';
+
 
 import { purchase, sell } from '../reducers/index.js';
 
@@ -24,11 +29,20 @@ export class App extends React.Component{
     this.findStockPriceInMarket = this.findStockPriceInMarket.bind(this)
     this.handleSellButton = this.handleSellButton.bind(this)
     this.handleSellSharesChange = this.handleSellSharesChange.bind(this)
+    this.setLoginScreen = this.setLoginScreen.bind(this)
+    this.handleGetUser = this.handleGetUser.bind(this)
   }
 
   render() {
     return (
       <div>
+      <Login
+        setLoginScreen={this.setLoginScreen}
+        showLogin={this.props.state.views.showLogin}
+        handleCreateUser={this.handleCreateUser}
+        handleGetUser={this.handleGetUser}
+        >
+      </Login>
         <Menu
           findStockPriceInMarket={this.findStockPriceInMarket}
           handleBuyButton={this.handleBuyButton}
@@ -45,7 +59,7 @@ export class App extends React.Component{
           className="below-menu"
           cash={this.props.state.user.cash}
           marketPrices={this.props.state.marketPrices}
-          holdings={this.props.state.holdings}
+          holdings={this.props.state.user.holdings}
         ></Portfolio>
       </div>
     )
@@ -95,6 +109,17 @@ export class App extends React.Component{
   handlePriceButton(symbol){
     this.props.getStockPrice(symbol);
 
+  }
+
+  setLoginScreen(shouldLoginShow) {
+    this.props.dispatch(showLogin(shouldLoginShow));
+
+  }
+  handleCreateUser(username, name){
+    createUser(username, name);
+  }
+  handleGetUser(username){
+    getUser(username, this.props.dispatch);
   }
 
 }

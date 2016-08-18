@@ -9,30 +9,10 @@ import { App } from "./components/App.jsx";
 import './style.css';
 
 var stock;
-//to do: work on the buy function. figure out where to put my backend code that does a lot. maybe lib?
-// also the number of shares in the buy isn't working yet. get that running first.
-// (maybe add a 'selected stock' portion to my AppState)
-// also continue to write redux functions. the skeleton is connected.
-
 
 //dummyData is in the format that I want my future data
 const dummyData = {
-  holdings: [
-    {
-      numShares: 100,
-      symbol: "aapl",
-      avgCostBasis: 110,
-      userId: "13"
 
-    },
-    {
-      numShares: 200,
-      symbol: "fb",
-      avgCostBasis: 120,
-      userId: "13"
-
-    }
-  ],
   marketPrices: [
     {
       symbol: "aapl",
@@ -49,7 +29,52 @@ const dummyData = {
     name: "jorge",
     username: "jorge239",
     id: "13",
-    cash: 1000000
+    cash: 1000000,
+    holdings: [
+      {
+        numShares: 100,
+        symbol: "aapl",
+        avgCostBasis: 110,
+        userId: "13"
+
+      },
+      {
+        numShares: 200,
+        symbol: "fb",
+        avgCostBasis: 120,
+        userId: "13"
+
+      }
+    ],
+    transactions: {
+      buy: [{
+        symbol: "aapl",
+        quantity: 100,
+        costPerShare: 97,
+        date: "13 June"
+      },
+      {
+        symbol: "fb",
+        quantity: 200,
+        costPerShare: 110,
+        date: "1 June"
+      }],
+      sell: [
+        {
+          symbol: "aapl",
+          quantity: 100,
+          costPerShare: 105,
+          date: "15 June"
+        },
+        {
+          symbol: "fb",
+          quantity: 100,
+          costPerShare: 97,
+          date: "10 June"
+        }
+      ]
+
+    }
   },
   views: {
     menu: {
@@ -63,37 +88,12 @@ const dummyData = {
     },
     sellField: {
       numberShares: 0
-    }
-  },
-  transactions: {
-    buy: [{
-      symbol: "aapl",
-      quantity: 100,
-      costPerShare: 97,
-      date: "13 June"
     },
-    {
-      symbol: "fb",
-      quantity: 200,
-      costPerShare: 110,
-      date: "1 June"
-    }],
-    sell: [
-      {
-        symbol: "aapl",
-        quantity: 100,
-        costPerShare: 105,
-        date: "15 June"
-      },
-      {
-        symbol: "fb",
-        quantity: 100,
-        costPerShare: 97,
-        date: "10 June"
-      }
-    ]
-
+    showLogin: {
+      show: false
+    }
   }
+
 }
 
 
