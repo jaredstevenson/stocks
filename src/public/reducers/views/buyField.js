@@ -11,8 +11,7 @@ export function buyQuantity (quant){
 
 
 ///
-// need to get the purchase function working. it is nesting data right now.
-// NOT USING THIS HERE RIGHT NOW
+
 export function purchase (numShares, symbol, wholeState){
   return {
     type: "PURCHASE",

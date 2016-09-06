@@ -30,9 +30,7 @@ User {
   username: string,
   id: string,
   cash: number
-}
 
-{
   holdings: [
     {
       numShares: 100,
@@ -49,6 +47,18 @@ User {
 
     }
   ],
+  transactions: [
+  time: date,
+  action: "string",
+  symbol: "string",
+  costBasis: number,
+  numShares: number
+  ]
+
+}
+
+{
+
   marketPrices: [
     {
       symbol: "aapl",
@@ -61,6 +71,13 @@ User {
       updatedAt: 9:55am
     }
   ],
+  transactions: [
+  time: date,
+  action: "string",
+  symbol: "string",
+  costBasis: number,
+  numShares: number
+  ]
   user {
     name: "jorge",
     username: "jorge239",

@@ -8,16 +8,17 @@ export function setUser (user){
   }
 }
 
-const initialState = {
-  user: null
-}
+const initialState = null;
 
 export function reducer(state = initialState, action) {
   switch(action.type) {
     case "SET_USER":
-      return Object.assign({}, state, {
-        user: action.payload.user
-      })
+    console.log("reducer setUser", action.payload.user);
+
+      const toReturn = Object.assign({}, state, action.payload.user
+      )
+      console.log("to Return", toReturn);
+      return toReturn;
     default:
       return state;
   }

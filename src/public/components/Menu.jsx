@@ -5,6 +5,8 @@ import { Sell } from './Sell.jsx';
 import { Price } from './Price.jsx';
 import { History } from './History.jsx';
 import { classNames } from 'classnames';
+import {updateAllPrices} from '../actionCreators/index.js'
+
 
 
 
@@ -52,8 +54,11 @@ export class Menu extends React.Component {
             </li>
             <li><a href="javascript:void(0)" onClick={()=>menuClickHandler('history')}>History</a>
               <div className={ dropDownClassHistory }>
-                <History state={this.props.state}></History>
+                <History transactions={this.props.state.user.transactions}></History>
               </div>
+            </li>
+            <li><a href="javascript:void(0)" onClick={()=>updateAllPrices(this.props.state.user.holdings, this.props.dispatch)}>Update Portfolio Prices</a>
+
             </li>
           </ul>
 

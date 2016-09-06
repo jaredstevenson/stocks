@@ -12,6 +12,7 @@ import { priceCheck } from '../reducers/views/priceCheck.js';
 import { buyQuantity } from '../reducers/views/buyField.js';
 import { sellField } from '../reducers/views/sellField.js';
 import { showLogin } from '../reducers/views/showLogin.js';
+import {updateUser} from '../actionCreators/index.js'
 
 
 import { purchase, sell } from '../reducers/index.js';
@@ -57,6 +58,8 @@ export class App extends React.Component{
         ></Menu>
         <Portfolio
           className="below-menu"
+          username={this.props.state.user.username}
+          name={this.props.state.user.name}
           cash={this.props.state.user.cash}
           marketPrices={this.props.state.marketPrices}
           holdings={this.props.state.user.holdings}
@@ -79,11 +82,14 @@ export class App extends React.Component{
   handleSellButton(){
 
     this.props.dispatch(sell(this.props.state))
+    setTimeout(updateUser(this.props.state.user.username, this.props.state.user),1000);
+
   }
 
   handleBuyButton(numShares, symbol){
 
     this.props.dispatch(purchase(numShares, symbol, this.props.state))
+    setTimeout(updateUser(this.props.state.user.username, this.props.state.user),1000);
   }
 
   handleBuySharesChange(event) {

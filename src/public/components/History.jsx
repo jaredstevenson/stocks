@@ -6,7 +6,7 @@ export class History extends React.Component{
     return (
       <div>
         <div>History!</div>
-        <div>You bought some aapl and some fb</div>
+        <div>{JSON.stringify(this.props.transactions)}</div>
         <div></div>
       </div>
     )}

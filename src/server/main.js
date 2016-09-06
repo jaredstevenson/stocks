@@ -8,6 +8,7 @@ import * as bodyParser from 'body-parser';
 var app = express();
 var connection;
 
+//sample market data
 var market = {
   fb: 100,
   goog: 200,
@@ -19,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin',"*")
+  res.setHeader('Access-Control-Allow-Methods',"GET, POST, PUT")
+
   res.setHeader('Access-Control-Allow-Headers', "Content-Type")
   next();
 })
@@ -34,8 +37,9 @@ app.post('/users', function (req, res){
 
 
 
-app.put('/users/:id', function(req, res){
-  users.update(connection, req.params.id, req.body)
+app.put('/users/:username', function(req, res){
+  console.log("put req.body", req.body);
+  users.update(connection, req.params.username, req.body)
   .then(function() {res.send(200)})
 })
 

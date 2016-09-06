@@ -7,6 +7,7 @@ export class Portfolio extends React.Component {
   render() {
     return (
       <div className="below-menu">
+        Name: {this.props.name}     Username: {this.props.username}
         <table>
           <thead>
             <tr>

@@ -12,10 +12,12 @@ export function getAll(connection) {
 ///get this working
 export function getOne(connection, username) {
   //var id = Mongodb.ObjectId(userId);
-  return connection.collection("users").findOne({"user.username": username});
+  return connection.collection("users").findOne({"username": username});
 }
 
-export function update(connection, userId, user) {
+export function update(connection, username, user) {
   //var id = Mongodb.ObjectId(userId);
-  return connection.collection("users").update({"id": userId}, user);
+  delete user["_id"]
+  console.log("update getting called", user);
+  return connection.collection("users").findAndModify({"username": username}, ["username", username ], user, {remove: false});
 }

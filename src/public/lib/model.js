@@ -6,11 +6,12 @@ export function buyShares (state) {
   let stock = find(state.marketPrices, {symbol: state.views.priceCheck.symbol})
   let dollarAmount = stock.price * state.views.buyField.numberShares
   let newCash = state.user.cash - dollarAmount;
-  console.log("dollarAmount", dollarAmount);
   if (!isCashAvailable(dollarAmount, state.user)){
     return state;
   }
   if (hasStock(state.views.priceCheck.symbol, state.user.holdings)){
+    state = addTransaction("buy", state.views.buyField.numberShares, stock.price, state);
+    console.log("addTransaction result", state.user);
     return Object.assign({}, state, {
       user: Object.assign({}, state.user, {
         cash: newCash,
@@ -18,16 +19,17 @@ export function buyShares (state) {
           if(holding.symbol === stock.symbol){
             holding.numShares += state.views.buyField.numberShares;
             holding.avgCostBasis = ((dollarAmount + (holding.avgCostBasis * (holding.numShares - state.views.buyField.numberShares))) / holding.numShares)
-            console.log("has holding", holding.numShares);
             return holding;
           }else return holding;
         })
       })
 
     })
-
   }
   if (!hasStock(state.views.priceCheck.symbol, state.user.holdings)){
+    state = addTransaction("buy", state.views.buyField.numberShares, stock.price, state);
+    console.log("addTransaction result", state.user);
+
     return Object.assign({}, state, {
       user: Object.assign({}, state.user, {
         cash: newCash,
@@ -57,12 +59,13 @@ export function sellShares (state) {
   if( state.views.sellField.numberShares > currentHolding.numShares){
     return state;
   }
+  state = addTransaction("sell", state.views.sellField.numberShares, currentHoldingPrice.price, state);
+
   if (state.views.sellField.numberShares === currentHolding.numShares){
     return Object.assign({}, state, {
       user: Object.assign({}, state.user, {
         cash: newCash,
         holdings: filter(state.user.holdings, (holding)=>{
-          console.log("filter"  );
           return holding.symbol !== currentHolding.symbol
         })
       })
@@ -80,6 +83,23 @@ export function sellShares (state) {
         }else return holding;
       })
     })
+
+  })
+}
+
+export function addTransaction (actionType, numShares, price, state){
+  console.log("addTransaction called state", state);
+  return Object.assign({}, state, {
+    user: Object.assign({}, state.user, {
+      transactions: state.user.transactions.concat([{
+        actionType: actionType,
+        time: new Date(),
+        numShares: numShares,
+        symbol: state.views.priceCheck.symbol,
+        price: price
+      }])
+    })
+
 
   })
 }

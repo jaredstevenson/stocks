@@ -12,8 +12,9 @@ var stock;
 
 //dummyData is in the format that I want my future data
 const dummyData = {
+user:{name:"",username:"",cash:1000000,holdings:[],transactions:{}},
 
-  marketPrices: [
+marketPrices: [
     {
       symbol: "aapl",
       price: 110,
@@ -25,57 +26,57 @@ const dummyData = {
       updatedAt: new Date()
     }
   ],
-  user: {
-    name: "jorge",
-    username: "jorge239",
-    id: "13",
-    cash: 1000000,
-    holdings: [
-      {
-        numShares: 100,
-        symbol: "aapl",
-        avgCostBasis: 110,
-        userId: "13"
-
-      },
-      {
-        numShares: 200,
-        symbol: "fb",
-        avgCostBasis: 120,
-        userId: "13"
-
-      }
-    ],
-    transactions: {
-      buy: [{
-        symbol: "aapl",
-        quantity: 100,
-        costPerShare: 97,
-        date: "13 June"
-      },
-      {
-        symbol: "fb",
-        quantity: 200,
-        costPerShare: 110,
-        date: "1 June"
-      }],
-      sell: [
-        {
-          symbol: "aapl",
-          quantity: 100,
-          costPerShare: 105,
-          date: "15 June"
-        },
-        {
-          symbol: "fb",
-          quantity: 100,
-          costPerShare: 97,
-          date: "10 June"
-        }
-      ]
-
-    }
-  },
+  // user: {
+  //   name: "jorge",
+  //   username: "jorge239",
+  //   id: "13",
+  //   cash: 1000000,
+  //   holdings: [
+  //     {
+  //       numShares: 100,
+  //       symbol: "aapl",
+  //       avgCostBasis: 110,
+  //       userId: "13"
+  //
+  //     },
+  //     {
+  //       numShares: 200,
+  //       symbol: "fb",
+  //       avgCostBasis: 120,
+  //       userId: "13"
+  //
+  //     }
+  //   ],
+  //   transactions: {
+  //     buy: [{
+  //       symbol: "aapl",
+  //       quantity: 100,
+  //       costPerShare: 97,
+  //       date: "13 June"
+  //     },
+  //     {
+  //       symbol: "fb",
+  //       quantity: 200,
+  //       costPerShare: 110,
+  //       date: "1 June"
+  //     }],
+  //     sell: [
+  //       {
+  //         symbol: "aapl",
+  //         quantity: 100,
+  //         costPerShare: 105,
+  //         date: "15 June"
+  //       },
+  //       {
+  //         symbol: "fb",
+  //         quantity: 100,
+  //         costPerShare: 97,
+  //         date: "10 June"
+  //       }
+  //     ]
+  //
+  //   }
+  // },
   views: {
     menu: {
       openDropDown: null
