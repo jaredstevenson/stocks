@@ -38,7 +38,6 @@ app.post('/users', function (req, res){
 
 
 app.put('/users/:username', function(req, res){
-  console.log("put req.body", req.body);
   users.update(connection, req.params.username, req.body)
   .then(function() {res.send(200)})
 })

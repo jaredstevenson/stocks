@@ -26,6 +26,14 @@ marketPrices: [
       updatedAt: new Date()
     }
   ],
+  user: {
+    name: "",
+    username: "",
+    _id: "",
+    cash: 1000000,
+    holdings: [],
+    transactions: []
+  },
   // user: {
   //   name: "jorge",
   //   username: "jorge239",
@@ -91,7 +99,7 @@ marketPrices: [
       numberShares: 0
     },
     showLogin: {
-      show: false
+      show: true
     }
   }
 

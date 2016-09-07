@@ -9,7 +9,7 @@ export function getStockPrice(symbol, dispatch){
   return axios.get('http://localhost:3002/stock/' + symbol).then(function(response) {
     const stock = response.data;
 
-    dispatch(updateStockPrice(symbol, stock.price.toFixed(2)));
+    dispatch(updateStockPrice(symbol, stock.price));
 
   })
   .catch(function(err){
@@ -20,14 +20,12 @@ export function getStockPrice(symbol, dispatch){
 }
 
 export function updateAllPrices(holdings, dispatch){
-  console.log("updateAllPrices", holdings);
   for (var i = 0 ; i < holdings.length; i++ ) {
-    console.log("inside for loop", holdings[i].symbol);
     getStockPrice(holdings[i].symbol, dispatch);
   }
 }
 
-export function createUser(username, name){
+export function createUser(username, name, dispatch){
   return axios.post('http://localhost:3002/users', {
       name: name,
       username: username,
@@ -37,14 +35,13 @@ export function createUser(username, name){
 
   })
   .then(function(response){
-    console.log("response", response);
+    getUser(username, dispatch);
   })
 }
 
 export function getUser(username, dispatch){
   return axios.get('http://localhost:3002/users/' + username)
     .then(function(response){
-      console.log("get response from getUser", response.data);
       updateAllPrices(response.data.holdings, dispatch)
       dispatch(setUser(response.data))
     })
@@ -56,7 +53,6 @@ export function getUser(username, dispatch){
 
 //action to update the user on the database
 export function updateUser(username, user){
-  console.log("updateUser called", username, user);
   return axios.put('http://localhost:3002/users/' + username, user)
     // .then(function(respose){
     //   console.log("update user", response.data);

@@ -1,5 +1,5 @@
 import { find, findIndex, filter } from 'lodash';
-
+import {generateID} from './id.js'
 //This has the backend for buy and sell parts of the program
 
 export function buyShares (state) {
@@ -89,11 +89,14 @@ export function sellShares (state) {
 
 export function addTransaction (actionType, numShares, price, state){
   console.log("addTransaction called state", state);
+  let date = new Date();
   return Object.assign({}, state, {
     user: Object.assign({}, state.user, {
       transactions: state.user.transactions.concat([{
+        id: generateID(),
         actionType: actionType,
-        time: new Date(),
+        time: date.toLocaleTimeString(),
+        date: date.toDateString(),
         numShares: numShares,
         symbol: state.views.priceCheck.symbol,
         price: price

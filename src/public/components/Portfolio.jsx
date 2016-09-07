@@ -24,7 +24,7 @@ export class Portfolio extends React.Component {
               <td>Cash</td>
               <td>-----</td>
               <td>-----</td>
-              <td>{this.props.cash}</td>
+              <td>{this.props.cash.toFixed(2)}</td>
             </tr>
             {this.props.holdings.map((holding)=>{
               const stockPrice = find(this.props.marketPrices, (stockPrice)=>{
@@ -37,23 +37,23 @@ export class Portfolio extends React.Component {
                   <td>{holding.symbol}</td>
 
                   <td>
-                    ${stockPrice.price}
+                    ${stockPrice.price.toFixed(2)}
 
                   </td>
                   <td>
-                    ${ netGain}
+                    ${ netGain.toFixed(2)}
 
                   </td>
                   <td>
-                    ${ CurVal }
+                    ${ CurVal.toFixed(2) }
 
                   </td>
                   <td>
-                    {holding.numShares}
+                    {holding.numShares.toFixed(0)}
 
                   </td>
                   <td>
-                    ${holding.avgCostBasis}
+                    ${holding.avgCostBasis.toFixed(2)}
 
                   </td>
 
@@ -68,11 +68,10 @@ export class Portfolio extends React.Component {
             <td>Total Value</td>
             <td>-----</td>
             <td>-----</td>
-            <td>{this.props.cash + portfolioTotalValue(this.props.holdings, this.props.marketPrices)}</td>
+            <td>{(this.props.cash + portfolioTotalValue(this.props.holdings, this.props.marketPrices)).toFixed(2)}</td>
           </tr>
         </tbody>
       </table>
-      Prices last updated {this.props.marketPrices[0].updatedAt.toString()}
       </div>
     )
   }

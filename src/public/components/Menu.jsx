@@ -57,7 +57,7 @@ export class Menu extends React.Component {
                 <History transactions={this.props.state.user.transactions}></History>
               </div>
             </li>
-            <li><a href="javascript:void(0)" onClick={()=>updateAllPrices(this.props.state.user.holdings, this.props.dispatch)}>Update Portfolio Prices</a>
+            <li><a href="javascript:void(0)" onClick={()=>{menuClickHandler(null); updateAllPrices(this.props.state.user.holdings, this.props.dispatch)}}>Update Portfolio Prices</a>
 
             </li>
           </ul>

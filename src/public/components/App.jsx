@@ -32,6 +32,7 @@ export class App extends React.Component{
     this.handleSellSharesChange = this.handleSellSharesChange.bind(this)
     this.setLoginScreen = this.setLoginScreen.bind(this)
     this.handleGetUser = this.handleGetUser.bind(this)
+    this.handleCreateUser = this.handleCreateUser.bind(this)
   }
 
   render() {
@@ -82,14 +83,14 @@ export class App extends React.Component{
   handleSellButton(){
 
     this.props.dispatch(sell(this.props.state))
-    setTimeout(updateUser(this.props.state.user.username, this.props.state.user),1000);
+    setTimeout(()=>{updateUser(this.props.state.user.username, this.props.state.user)},2000);
 
   }
 
   handleBuyButton(numShares, symbol){
 
     this.props.dispatch(purchase(numShares, symbol, this.props.state))
-    setTimeout(updateUser(this.props.state.user.username, this.props.state.user),1000);
+    setTimeout(()=>{updateUser(this.props.state.user.username, this.props.state.user)},2000);
   }
 
   handleBuySharesChange(event) {
@@ -122,7 +123,7 @@ export class App extends React.Component{
 
   }
   handleCreateUser(username, name){
-    if (!!username) createUser(username, name);
+    if (!!username) createUser(username, name, this.props.dispatch);
   }
   handleGetUser(username){
     if (!!username) getUser(username, this.props.dispatch);
